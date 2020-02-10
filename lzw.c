@@ -29,13 +29,15 @@ int main(int argc, char *argv[]) {
 
     if(argc == 1)
         printf("Please specify either '-encode' or '-decode'\n");
+	//This is for encoding: Reading in normal text and encoding it
     else if(strcmp(argv[1], "-encode") == 0) {
-        fp = fopen("input.txt", "r");
-        fp1 = fopen("output.txt","w");
+        fp = fopen("input.txt", "r");	//Optional: change "input.txt" to different path to change input file
+        fp1 = fopen("output.txt","w");	//Optional: change "output.txt" to change output file path
         lzwEncode(10, 24, rdFunc, wrFunc, fp1);
+	//This is for decoding: Reading in encoded text and decoding it
     }else if(strcmp(argv[1], "-decode") == 0) {
-        fp = fopen("output.txt", "r");
-        fp1 = fopen("outputDecode.txt","w");
+        fp = fopen("output.txt", "r");	//Optional: If "output.txt" changes above, set the path to the same path as above
+        fp1 = fopen("outputDecode.txt","w");	//Optional: change "outputDecode.txt" to change decoded output path
         lzwDecode(10, 24, rdFunc,wrFunc,fp1);
     } else
         printf("Please specify either '-encode' or '-decode'\n");
