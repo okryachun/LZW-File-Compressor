@@ -1,3 +1,7 @@
+/*Author: Oleg Kryachun
+Date: 02/05/2020
+Summary: This is a LZW compression algorithm implemented in C.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
