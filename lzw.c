@@ -11,34 +11,36 @@ Summary: This is a LZW compression algorithm implemented in C.
 
 static FILE *fp, *fp1;
 
-int readFunc(void *context) {
+int readFunc (void *context) {
 	return fgetc(fp);;
 }
 
-void writeFunc(unsigned char c, void *context) {
+void writeFunc (unsigned char c, void *context) {
     fputc((int)c, context);
 }
 
-int main(int argc, char *argv[]) {
-    int (*rdFunc)(void *);
-    rdFunc = readFunc;
+int main (int argc, char *argv[]) {
+    int (*read_func)(void *);
+    read_func = readFunc;
 
-    void (*wrFunc)(unsigned char, void*);
-    wrFunc = writeFunc;
+    void (*write_func)(unsigned char, void *);
+    write_func = writeFunc;
 
 
-    if(argc == 1)
+    if (argc == 1) {
         printf("Please specify either '-encode' or '-decode'\n");
-	//This is for encoding: Reading in normal text and encoding it
-    else if(strcmp(argv[1], "-encode") == 0) {
+	
+    //This is for encoding: Reading in normal text and encoding it
+    } else if (strcmp(argv[1], "-encode") == 0) {
         fp = fopen("input.txt", "r");	//Optional: change "input.txt" to different path to change input file
         fp1 = fopen("output.txt","w");	//Optional: change "output.txt" to change output file path
-        lzwEncode(10, 24, rdFunc, wrFunc, fp1);
-	//This is for decoding: Reading in encoded text and decoding it
-    }else if(strcmp(argv[1], "-decode") == 0) {
+        lzwEncode(10, 24, read_func, write_func, fp1);
+	
+    //This is for decoding: Reading in encoded text and decoding it
+    } else if (strcmp(argv[1], "-decode") == 0) {
         fp = fopen("output.txt", "r");	//Optional: If "output.txt" changes above, set the path to the same path as above
         fp1 = fopen("outputDecode.txt","w");	//Optional: change "outputDecode.txt" to change decoded output path
-        lzwDecode(10, 24, rdFunc,wrFunc,fp1);
+        lzwDecode(10, 24, read_func, write_func, fp1);
     } else
         printf("Please specify either '-encode' or '-decode'\n");
 
